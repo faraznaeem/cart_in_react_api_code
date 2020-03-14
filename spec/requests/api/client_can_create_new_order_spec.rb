@@ -1,6 +1,6 @@
 RSpec.describe Api::OrdersController, type: :request do
-  let!(:product_1) { create(:product, name: 'Pizza') }
-  let!(:product_2) { create(:product, name: 'Kebab') }
+  let!(:product_1) { create(:product, name: 'Pizza', price: 10) }
+  let!(:product_2) { create(:product, name: 'Kebab', price: 20) }
 
 	before do
 		post '/api/orders', params: { product_id: product_1.id }
