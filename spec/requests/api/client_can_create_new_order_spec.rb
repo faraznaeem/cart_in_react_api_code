@@ -33,7 +33,7 @@ RSpec.describe Api::OrdersController, type: :request do
     end
 
     it "adds another product to order if request is a PUT and param id of the order is present" do
-      expect(@order.order_items.count).to eq 2
+      expect(@order.order_items.count).to eq 3
     end
 
     it "responds with order id" do
