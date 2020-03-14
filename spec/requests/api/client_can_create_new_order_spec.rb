@@ -7,9 +7,8 @@ RSpec.describe Api::OrdersController, type: :request do
     @order = Order.last
   end
 
-  it 'adds another product to order if param order_id"
-     is present' do
-    post "/api/orders", params: { id: product_2.id, order_id: @order.id }
+  it 'adds another product to order if param "order_id" is present' do
+    put "/api/orders/#{@order.id}", params: { product_id: product_2.id }
     expect(@order.order_items.count).to eq 2
   end
 
