@@ -20,6 +20,10 @@ RSpec.describe Api::OrdersController, type: :request do
     it "responds with right amount of products" do
       expect(JSON.parse(response.body)["order"]["products"].count).to eq 1
     end
+
+    it "responds with right order total" do
+      expect(JSON.parse(response.body)["order"]["total"]).to eq 10
+    end
   end
 
   describe "PUT /api/orders/:id" do
