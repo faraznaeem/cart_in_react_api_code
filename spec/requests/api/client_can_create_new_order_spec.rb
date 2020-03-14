@@ -1,19 +1,35 @@
 RSpec.describe Api::OrdersController, type: :request do
-  let!(:product_1) { create(:product, name: "Pizza") }
-  let!(:product_2) { create(:product, name: "Kebab") }
+  let!(:product_1) { create(:product, name: 'Pizza') }
+  let!(:product_2) { create(:product, name: 'Kebab') }
 
-  before do
-    post "/api/orders", params: { id: product_1.id }
-    @order = Order.last
+	before do
+		post '/api/orders', params: { product_id: product_1.id }
+		@order_id = JSON.parse(response.body)['order_id']
+	end
+
+  describe 'POST /api/orders' do
+    it 'responds with success message' do
+      expect(JSON.parse(response.body)['message']).to eq 'The product has been added to your order'
+    end
+
+    it 'responds with order id' do
+      order = Order.find(@order_id)
+      expect(JSON.parse(response.body)['order_id']).to eq order.id
+    end
   end
 
-  it 'adds another product to order if param "order_id" is present' do
-    put "/api/orders/#{@order.id}", params: { product_id: product_2.id }
-    expect(@order.order_items.count).to eq 2
-  end
+  describe 'PUT /api/orders/:id' do
+    before do
+      put "/api/orders/#{@order_id}", params: { product_id: product_2.id }
+      @order = Order.find(@order_id)
+    end
 
-  it "responds with success message" do
-    post "/api/orders", params: { id: product_1.id }
-    expect(JSON.parse(response.body)["message"]).to eq "The product has been added to your order"
+    it 'adds another product to order if request is a PUT and param id of the order is present' do
+      expect(@order.order_items.count).to eq 2
+    end
+
+    it 'responds with order id' do
+      expect(JSON.parse(response.body)['order_id']).to eq @order.id
+    end
   end
 end
