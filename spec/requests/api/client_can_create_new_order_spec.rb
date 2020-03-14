@@ -36,8 +36,8 @@ RSpec.describe Api::OrdersController, type: :request do
       expect(@order.order_items.count).to eq 3
     end
 
-    it "responds with order id" do
-      expect(JSON.parse(response.body)["order_id"]).to eq @order.id
+    it 'responds with order id' do
+      expect(JSON.parse(response.body)['order']['id']).to eq @order.id
     end
   end
 end
