@@ -1,5 +1,5 @@
 class OrderSerializer < ActiveModel::Serializer
-  attributes :id, :products_1, :products_2, :products_3, :products, :total, :order_total
+  attributes :id, :products_1, :products_2, :products_3, :products, :total, :order_total, :finalized
 
   def products_1
     products = []

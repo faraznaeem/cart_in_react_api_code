@@ -7,7 +7,7 @@ RSpec.describe Api::OrdersController, type: :request do
     order.order_items.create(product: product_1)
     order.order_items.create(product: product_2)
 
-    put "/api/orders/#{order.id}", params: { action: 'finalize' }
+    put "/api/orders/#{order.id}", params: { activity: 'finalize' }
   end
 
   describe 'PUT /api/orders' do
